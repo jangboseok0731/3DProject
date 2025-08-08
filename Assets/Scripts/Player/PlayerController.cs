@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 4f;
     private bool isGrounded;
 
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -62,6 +63,14 @@ public class PlayerController : MonoBehaviour
     {
         mouseDelta = context.ReadValue<Vector2>();
     }
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Started && isGrounded)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
+        }
+    }
 
 
 
@@ -74,10 +83,6 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = dir;
     }
-    void jump()
-    {
-
-    }
 
      void CameraLook()
     {
@@ -87,6 +92,14 @@ public class PlayerController : MonoBehaviour
         cameraContainer.localEulerAngles = vector3;
 
         transform.eulerAngles += new  Vector3(0, mouseDelta.x * lookSensitivity,0);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
     }
 }
 
