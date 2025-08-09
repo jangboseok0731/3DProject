@@ -9,15 +9,17 @@ public class Heals : MonoBehaviour
     public float maxValue;
     public float startValue;
     public float passiveValue;
-    public Image uiBar;
+    public Image uiImage;
 
     private void Start()
     {
         curValue = startValue;
+        Subtract(20f);
     }
     private void Update()
     {
-        uiBar.fillAmount = GetPercentage();
+        uiImage.fillAmount = GetPercentage();
+        PassiveHeal();
     }
     public void Add(float amount)
     {
@@ -27,9 +29,14 @@ public class Heals : MonoBehaviour
     public void Subtract(float amount)
     {
         curValue = Mathf.Max(curValue - amount, 0.0f);
+        Debug.Log($"지금 {amount} 만큼 데미지를 입었어");
     }
     public float GetPercentage()
     {
         return curValue / maxValue;
+    }
+    public float PassiveHeal()
+    {
+        return curValue += passiveValue * Time.deltaTime;
     }
 }
