@@ -16,5 +16,6 @@ public class Player : MonoBehaviour
     {
         PlayerManager.Instance.Player = this;
         playerController = GetComponent<PlayerController>();
+        heals = GetComponent<Heals>();
     }
 }
