@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 public class Interaction : MonoBehaviour
 {
     public float checkRate = 0.05f;
-    private float lasstCheckDistance;
     public float lastCheckTime;
     public float maxCheckDistance;
     public LayerMask layerMask;
@@ -28,27 +27,31 @@ public class Interaction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.time - lastCheckTime > checkRate)
+        if (Time.time - lastCheckTime > checkRate)
         {
             lastCheckTime = Time.time;
-        }
-        Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
-        RaycastHit hit;
+        
+            Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+            RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
-        {
-            if(hit.collider.gameObject != curInteractGameObject)
+            if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
             {
-                curInteractGameObject = hit.collider.gameObject;
-                curInteractable = hit.collider.GetComponent<IInteractable>();
-                SetPromptText();
+                Debug.Log("Hit: 업데이터");
+
+                if (hit.collider.gameObject != curInteractGameObject)
+                {
+                    Debug.Log("Hit: " + hit.collider.gameObject.name);
+                    curInteractGameObject = hit.collider.gameObject;
+                    curInteractable = hit.collider.GetComponent<IInteractable>();
+                    SetPromptText();
+                }
             }
-        }
-        else
-        {
-            curInteractGameObject = null;
-            curInteractable = null;
-            promptText.gameObject.SetActive(false);
+            else
+            {
+                curInteractGameObject = null;
+                curInteractable = null;
+                promptText.gameObject.SetActive(false);
+            }
         }
     }
     private void SetPromptText()
