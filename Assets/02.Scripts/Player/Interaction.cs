@@ -37,7 +37,6 @@ public class Interaction : MonoBehaviour
             if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
             {
                 Debug.Log("Hit: 업데이터");
-
                 if (hit.collider.gameObject != curInteractGameObject)
                 {
                     Debug.Log("Hit: " + hit.collider.gameObject.name);

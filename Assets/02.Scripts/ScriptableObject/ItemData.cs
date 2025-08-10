@@ -21,8 +21,6 @@ public class ItemDataConsumable
     public float value;
 }
 
-
-
 [CreateAssetMenu(fileName = "Item", menuName = "New Item")]
 public class ItemData : ScriptableObject
 {
@@ -37,7 +35,6 @@ public class ItemData : ScriptableObject
     [Header("Staking")]
     public bool canStack;
     public int maxStackAmount;
-
 
     [Header("Consumable")]
     public ItemDataConsumable[] consumables;
