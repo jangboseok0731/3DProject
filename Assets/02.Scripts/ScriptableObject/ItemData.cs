@@ -5,7 +5,7 @@ using UnityEngine;
 public enum ItemType
 {
     Equipable,
-    consumable,
+    Consumable,
     Resource
 }
 

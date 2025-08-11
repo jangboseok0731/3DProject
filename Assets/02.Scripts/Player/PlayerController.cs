@@ -50,9 +50,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-
-
     //On 됐을 때 context로 변환 함수 모음
     public void OnMove(InputAction.CallbackContext context)
     {

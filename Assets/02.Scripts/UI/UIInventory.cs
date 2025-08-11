@@ -62,11 +62,12 @@ public class UIInventory : MonoBehaviour
     void ClearSelectedItemWindow()
     {
         selectedItem = null;
-        selectedItemIndex = -1;
+
         selectedItemName.text = string.Empty;
         selectedItemDescription.text = string.Empty;
         selectedItemStatName.text = string.Empty;
         selectedItemStatValue.text = string.Empty;
+
         useButton.SetActive(false);
         equipButton.SetActive(false);
         unequipButton.SetActive(false);
@@ -126,7 +127,9 @@ public class UIInventory : MonoBehaviour
         {
             if (slots[i] != null) 
             {
+                Debug.Log(slots[i].name);
                 slots[i].Set();
+                
             }
             else
             {
@@ -159,6 +162,7 @@ public class UIInventory : MonoBehaviour
     }
     void ThrowItem(ItemData data)
     {
-        Instantiate(data.dropPrefab,dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360))
+        Instantiate(data.dropPrefab, dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360));
     }
+
 }

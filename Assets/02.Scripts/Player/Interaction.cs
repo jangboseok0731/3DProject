@@ -55,6 +55,11 @@ public class Interaction : MonoBehaviour
     }
     private void SetPromptText()
     {
+        if(curInteractable == null)
+        {
+            promptText.gameObject.SetActive(false);
+            return;
+        }
         promptText.gameObject.SetActive (true);
         promptText.text = curInteractable.GetInteractPrompt();
         
@@ -63,6 +68,11 @@ public class Interaction : MonoBehaviour
     {
         if(context.phase == InputActionPhase.Started && curInteractable != null)
         {
+            if(PlayerManager.Instance.Player == null)
+            {
+                Debug.LogError("PlayerManager.Instance.Player is null. Cannot interact.");
+                return;
+            }
             curInteractable.OnInteract();
             curInteractGameObject = null;
             curInteractable = null;
