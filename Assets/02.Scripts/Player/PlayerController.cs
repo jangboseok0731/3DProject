@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -120,8 +121,19 @@ public class PlayerController : MonoBehaviour
         canLook = !toggle;
 
     }
+    public void OnItemBooster(float Speed)
+    {
+        StartCoroutine(SpeedBooster());
+        moveSpeed *= Speed;
+    }
 
+    IEnumerator SpeedBooster()
+    {
+       yield return new WaitForSeconds(3f);
+        moveSpeed = 0f;
+    }
 }
+
 
 
 

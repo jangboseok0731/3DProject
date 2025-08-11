@@ -23,8 +23,6 @@ public class ItemSlot : MonoBehaviour
     public void Set()
     {
         icon.gameObject.SetActive(true);
-        Debug.Log("아이콘 스프라이트"+icon.sprite);
-        Debug.Log("아이템 아이콘" + item.icon);
         icon.sprite = item.icon;
         
         quatityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
@@ -43,8 +41,11 @@ public class ItemSlot : MonoBehaviour
     }
     public void OnClickButton()
     {
-        //inventory.SelectItem(index);
+        inventory.SelectItem(index);
     }
+
+
+
     private void OnEnable()
     {
         if (outline != null)

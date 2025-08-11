@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +13,10 @@ public enum ItemType
 public enum Consumabletype
 {
     Health,
-    Hunger
+    Hunger,
+    Speed
 }
-
+[Serializable]
 public class ItemDataConsumable
 {
     public Consumabletype type;
