@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     public ItemObject itemObject;
     public Action addItem;
 
+    public Transform dropPosition;
+
     private void Awake()
     {
         PlayerManager.Instance.Player = this;

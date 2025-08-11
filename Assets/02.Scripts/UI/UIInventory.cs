@@ -36,7 +36,11 @@ public class UIInventory : MonoBehaviour
     {
         controller = PlayerManager.Instance.Player.playerController;
         heals = PlayerManager.Instance.Player.heals;
+        dropPosition = PlayerManager.Instance.Player.dropPosition;  
+
         controller.inventory += Toggle;
+        PlayerManager.Instance.Player.addItem += AddItem;
+
         //controller.inventory.GetInvocationList();
         //foreach()
 
@@ -83,5 +87,78 @@ public class UIInventory : MonoBehaviour
     public bool IsOpen()
     {
         return inventoryWindow.activeInHierarchy;
+    }
+
+    void AddItem()
+    {
+        ItemData data = PlayerManager.Instance.Player.itemData;
+
+        
+        if (data.canStack)
+        {
+            ItemSlot slot = GetItemStack(data);
+            if(slot != null)
+            {
+                slot.quantity++;
+                UpdateUI();
+                PlayerManager.Instance.Player.itemData = null;
+                return;
+            }
+        }
+
+        ItemSlot emptySlot = GetEmptySlot();
+        if(emptySlot != null)
+        {
+            emptySlot.item = data;
+            emptySlot.quantity = 1;
+            UpdateUI();
+            PlayerManager.Instance.Player.itemData = null;
+            return;
+        }
+
+        ThrowItem(data);
+        PlayerManager.Instance.Player.itemData = null;
+
+    }
+  void UpdateUI()
+    {
+        for(int i =0; i < slots.Length; i++)
+        {
+            if (slots[i] != null) 
+            {
+                slots[i].Set();
+            }
+            else
+            {
+                slots[i].Clear();
+            }
+        }
+    }
+    ItemSlot GetItemStack(ItemData data)
+    {
+        for(int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item == data && slots[i].quantity < data.maxStackAmount)
+            {
+                return slots[i];
+            }
+        }
+        return null;
+    }
+
+    ItemSlot GetEmptySlot()
+    {
+        for(int i =0; i <slots.Length; i++)
+        {
+            if (slots[i].item == null)
+            {
+                return slots[i];
+            }
+        }
+        return null;
+    }
+    void ThrowItem(ItemData data)
+    {
+        Instantiate(data.dropPrefab,dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360))
     }
 }
