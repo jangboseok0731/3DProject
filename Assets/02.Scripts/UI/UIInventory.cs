@@ -8,9 +8,9 @@ using UnityEngine.UI;
 
 public class UIInventory : MonoBehaviour
 {
-    public ItemSlot[] Slots;
+    public ItemSlot[] slots;
 
-    public GameObject inventoryWidth;
+    public GameObject inventoryWindow;
     public Transform slotPanel;
     public Transform dropPosition;
 
@@ -21,6 +21,7 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI selectedItemDescription;
     public TextMeshProUGUI selectedItemStatName;
     public TextMeshProUGUI selectedItemStatValue;
+
     public GameObject useButton;
     public GameObject equipButton;
     public GameObject unequipButton;
@@ -35,8 +36,52 @@ public class UIInventory : MonoBehaviour
     {
         controller = PlayerManager.Instance.Player.playerController;
         heals = PlayerManager.Instance.Player.heals;
-        //dropPosition = PlayerManager.Instance.Player.dropPosition;
+        controller.inventory += Toggle;
+        //controller.inventory.GetInvocationList();
+        //foreach()
 
-        //controller.inventory += Toggle;
+        inventoryWindow.SetActive(false);
+        slots = new ItemSlot[slotPanel.childCount];
+
+        for(int i = 0; i < slots.Length; i++)
+        {
+            slots[i] = slotPanel.GetChild(i).GetComponent<ItemSlot>();
+            slots[i].index = i;
+            slots[i].inventory = this;
+        }
+        ClearSelectedItemWindow();
+    }
+    void Update()
+    {
+
+    }
+    void ClearSelectedItemWindow()
+    {
+        selectedItem = null;
+        selectedItemIndex = -1;
+        selectedItemName.text = string.Empty;
+        selectedItemDescription.text = string.Empty;
+        selectedItemStatName.text = string.Empty;
+        selectedItemStatValue.text = string.Empty;
+        useButton.SetActive(false);
+        equipButton.SetActive(false);
+        unequipButton.SetActive(false);
+        dropButton.SetActive(false);
+    }
+
+    public void Toggle()
+    {
+        if (IsOpen())
+        {
+            inventoryWindow.SetActive(false);
+        }
+        else
+        {
+            inventoryWindow.SetActive(true);
+        }
+    }
+    public bool IsOpen()
+    {
+        return inventoryWindow.activeInHierarchy;
     }
 }

@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     private float camCurXRot;
     public float lookSensitivity;
     private Vector2 mouseDelta;
+    public bool canLook = true;
+
+    public Action inventory;
 
     [Header("점프")]
     public float jumpForce = 4f;
@@ -39,10 +42,13 @@ public class PlayerController : MonoBehaviour
     }
     private void LateUpdate()
     {
-        CameraLook();
+        if (canLook)
+        {
+            CameraLook();
+        }
+
+
     }
-
-
 
 
 
@@ -74,6 +80,7 @@ public class PlayerController : MonoBehaviour
 
 
 
+
     //움직임.카메라 포함
      void Move()
     {
@@ -101,7 +108,24 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
         }
     }
+    public void OnInventory(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Started)
+        {
+            inventory?.Invoke();
+            ToggleCursor();
+        }
+    }
+    void ToggleCursor()
+    {
+        bool toggle = Cursor.lockState == CursorLockMode.Locked;
+        Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
+        canLook = !toggle;
+
+    }
+
 }
+
 
 
 
