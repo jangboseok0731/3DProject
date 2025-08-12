@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("¿Ãµø")]
+    private float curMoveSpeed =5f;
     public float moveSpeed;
     private Vector2 curMovementInput;
 
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        curMoveSpeed = moveSpeed;
         rb = GetComponent<Rigidbody>();
     }
     private void Start()
@@ -130,7 +132,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator SpeedBooster()
     {
        yield return new WaitForSeconds(3f);
-        moveSpeed = 0f;
+        moveSpeed = curMoveSpeed;
     }
 }
 

@@ -59,10 +59,7 @@ public class UIInventory : MonoBehaviour
         }
         ClearSelectedItemWindow();
     }
-    void Update()
-    {
 
-    }
     void ClearSelectedItemWindow()
     {
         selectedItem = null;

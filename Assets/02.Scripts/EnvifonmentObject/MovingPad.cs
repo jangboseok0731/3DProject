@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class MovingPad : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Transform padTransform;
+    public float PadSpeed;
+
+
+    private void FixedUpdate()
     {
-        
+        if (padTransform == null)
+        {
+            padTransform = transform;
+        }
+        Vector3 newPosition = padTransform.position;
+        newPosition.x += Mathf.Sin(Time.time) * PadSpeed;
+        padTransform.position = newPosition;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
