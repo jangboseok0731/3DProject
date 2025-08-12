@@ -1,10 +1,11 @@
 using TMPro;
-using System.Collections;
-using System.Collections.Generic;
+////using System;
+//using System.Collections;
+//using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
+//using UnityEngine.Events;
+//using UnityEngine.InputSystem;
+//using UnityEngine.UI;
 
 public class UIInventory : MonoBehaviour
 {
@@ -15,8 +16,7 @@ public class UIInventory : MonoBehaviour
     public Transform dropPosition;
 
     [Header("Selected Item")]
-    private ItemSlot selectedItem;
-    private int selectedItemIndex;
+
     public TextMeshProUGUI selectedItemName;
     public TextMeshProUGUI selectedItemDescription;
     public TextMeshProUGUI selectedItemStatName;
@@ -27,11 +27,14 @@ public class UIInventory : MonoBehaviour
     public GameObject unequipButton;
     public GameObject dropButton;
 
-    private int curEquipIndex;
 
+    private ItemSlot selectedItem;
     private PlayerController controller;
     private Player player;
     private Heals heals;
+
+    int curEquipIndex;
+    private int selectedItemIndex = 0;
 
     ItemData SelectedItem;
 
@@ -228,6 +231,19 @@ public class UIInventory : MonoBehaviour
             selectedItemIndex = -1;
             ClearSelectedItemWindow();
         }
+        UpdateUI();
+    }
+
+    public void OnEquipButton()
+    {
+        if (slots[curEquipIndex].equipped)
+        {
+
+        }
+        slots[selectedItemIndex].equipped = true;
+        curEquipIndex = selectedItemIndex;
+        PlayerManager.Instance.Player.equip.EquipNew(selectedItem.item;
+        UpdateUI();
     }
 
 }
